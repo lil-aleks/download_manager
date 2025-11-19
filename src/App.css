@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-red-btn: hsl(0 70% 25%);
+  --color-gray-btn: hsl(225 10% 10%);
+  --color-red-btn-dark: hsl(0 70% 20%);
+  --color-gray-btn-dark: hsl(225 10% 8%);
+  --color-bg-dark: hsl(225 10% 3%);
+  --color-bg: hsl(225 10% 5%);
+  --color-blue-btn: hsl(245 75% 25%);
+  --color-blue-btn-dark: hsl(245 75% 20%);
+  --color-fg: hsl(0 0% 85%);
+  --color-fg-dark: hsl(0 0% 70%);
+}
+
+*[data-tauri-drag-region] {
+  app-region: drag;
+}

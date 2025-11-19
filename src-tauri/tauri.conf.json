@@ -1,0 +1,55 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "download_manager",
+  "version": "0.1.0",
+  "identifier": "de.aleks.download_manager",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Download Manager",
+        "width": 450,
+        "height": 220,
+        "alwaysOnTop": true,
+        "center": true,
+        "visible": false,
+        "resizable": false,
+        "decorations": false,
+        "maximizable": false
+      },
+      {
+        "label": "delayOptions",
+        "url": "index.html#/options",
+        "title": "Delay Options",
+        "width": 240,
+        "height": 450,
+        "alwaysOnTop": true,
+        "center": true,
+        "resizable": false,
+        "visible": false,
+        "decorations": false,
+        "maximizable": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
