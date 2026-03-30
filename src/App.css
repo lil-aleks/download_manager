@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+*[data-tauri-drag-region] {
+  app-region: drag;
+}
+
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
