@@ -3,6 +3,7 @@ name = "download_manager"
 version = "0.1.0"
 description = "A simple tool that keeps your download folder clean by asking what to do with each new file."
 authors = ["Aleksander Iwanowski <https://github.com/lil-aleks>"]
+homepage = "https://aleks-iwan.vercel.app/download_manager"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
