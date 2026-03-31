@@ -12,7 +12,7 @@ export const DefaultButton: Component<{ class?: string; disabled?: boolean; chil
   );
 };
 
-export const Checkbox: Component<{ class?: string; innerClass?: string; value: boolean; onChange?: (value: boolean) => void;}> = (
+export const Toggle: Component<{ class?: string; innerClass?: string; value: boolean; onChange?: (value: boolean) => void;}> = (
   props
 ) => {
   const merged = mergeProps({class: "", innerClass: "" }, props);
