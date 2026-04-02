@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "label": "main",
+        "label": "settings",
         "title": "Download Manager",
         "url": "index.html#settings",
         "width": 450,
