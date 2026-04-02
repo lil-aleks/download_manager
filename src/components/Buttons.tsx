@@ -40,12 +40,12 @@ export const Toggle: Component<{ class?: string; innerClass?: string; value: boo
   )
 }
 
-export const IconButton: Component<{ class?: string; svgIcon: Element;}> = (
+export const IconButton: Component<{ class?: string; svgIcon: Element; onClick?: () => void}> = (
   props
 ) => {
   const merged = mergeProps({class: "bg-blue-400"}, props);
   return (
-    <div class={"p-1 rounded-lg hover:scale-105 active:scale-95 transition " + merged.class}>
+    <div onClick={merged.onClick} class={"p-1 rounded-lg hover:scale-105 active:scale-95 transition " + merged.class}>
       {props.svgIcon}
     </div>
   )
