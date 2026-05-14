@@ -1,5 +1,7 @@
 use serde::Serialize;
 
+mod file_download;
+
 #[derive(Serialize)]
 struct FooterInfo {
     link: String,
