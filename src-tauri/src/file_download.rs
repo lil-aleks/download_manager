@@ -23,12 +23,16 @@ enum Action {
 pub struct DownloadedFile {
   id: i16,
   location: PathBuf,
-  zip_archive: bool
+  zip_archive: bool,
 }
 
 impl DownloadedFile {
   pub fn new(id: i16, location: PathBuf) -> DownloadedFile {
-    DownloadedFile { id, location, zip_archive: false }
+    DownloadedFile {
+      id,
+      location,
+      zip_archive: false,
+    }
   }
 
   fn delete(self) -> io::Result<()> {
@@ -58,12 +62,7 @@ impl DownloadedFile {
   pub fn r#move(self, mut to: PathBuf) -> io::Result<()> {
     let file_name = match self.location.file_name() {
       Some(name) => name,
-      None => {
-        return Err(io::Error::new(
-          io::ErrorKind::Other,
-          "Invalid file name",
-        ))
-      }
+      None => return Err(io::Error::new(io::ErrorKind::Other, "Invalid file name")),
     };
     to.push(file_name);
 
@@ -101,12 +100,15 @@ impl DownloadedFile {
   }
 }
 
-pub fn handle_action(mut downloaded_file: DownloadedFile, downloaded_file_in: DownloadedFileIn) -> io::Result<()> {
+pub fn handle_action(
+  mut downloaded_file: DownloadedFile,
+  downloaded_file_in: DownloadedFileIn,
+) -> io::Result<()> {
   downloaded_file.rename(downloaded_file_in.display_name)?;
   match downloaded_file_in.action {
     Action::Ignore => io::Result::Ok(()),
     Action::Delete { after } => downloaded_file.delete_after(after),
     Action::Extract { to } => io::Result::Ok(()), // TODO: Extract compressed files like .zip for example.
-    Action::Move { to } => downloaded_file.r#move(to)
+    Action::Move { to } => downloaded_file.r#move(to),
   }
 }
