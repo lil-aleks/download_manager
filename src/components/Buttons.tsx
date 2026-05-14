@@ -6,7 +6,7 @@ export const DefaultButton: Component<{ class?: string; disabled?: boolean; chil
   const merged = mergeProps({ disabled: false, class: "" }, props);
 
   return (
-    <button disabled={merged.disabled} onClick={merged.onClick} class={"rounded-xl bg-blue-500 px-2 py-1 text-white font-semibold disabled:opacity-55 disabled:bg-gray-400  not-disabled:hover:scale-105 not-disabled:active:scale-95 transition " + merged.class}>
+    <button disabled={merged.disabled} onClick={merged.onClick} class={"rounded-xl text-shadow-md bg-blue-400 px-3 py-1 shadow-md text-white tracking-wider font-semibold disabled:opacity-55 disabled:bg-gray-400 not-disabled:cursor-pointer not-disabled:hover:scale-102 not-disabled:active:scale-98 transition " + merged.class}>
       {merged.children}
     </button>
   );
@@ -22,8 +22,8 @@ export const Toggle: Component<{ class?: string; innerClass?: string; value: boo
   return (
     <div
       class={
-        "w-12 h-6 flex items-center rounded-full p-1 cursor-pointer transition " +
-        (enabled() ? "bg-blue-500 " : "bg-gray-400 ") + merged.class
+        "w-12 h-6 flex items-center shadow-md rounded-full p-1 cursor-pointer transition " +
+        (enabled() ? "bg-blue-400 " : "bg-gray-400 ") + merged.class
       }
       onClick={() => {
         merged.onChange?.(!enabled());
@@ -45,7 +45,7 @@ export const IconButton: Component<{ class?: string; svgIcon: Element; onClick?:
 ) => {
   const merged = mergeProps({class: "bg-blue-400"}, props);
   return (
-    <div onClick={merged.onClick} class={"p-1 rounded-lg hover:scale-105 active:scale-95 transition " + merged.class}>
+    <div onClick={merged.onClick} class={"p-1 rounded-lg hover:scale-105 shadow-md active:scale-95 transition " + merged.class}>
       {props.svgIcon}
     </div>
   )

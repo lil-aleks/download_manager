@@ -76,8 +76,8 @@ const App: Component = () => {
 
       <p class="text-xs h-0 -translate-y-2.5 text-red-400 px-2">{warning()}</p>
 
-      <div class="flex flex-row justify-between items-center px-2 py-1 gap-6 w-full h-10 bg-blue-300/30 rounded-xl">
-        <h1 class="font-semibold text-gray-800">Delete in:</h1>
+      <div class="flex flex-row justify-between items-center px-2 py-1 gap-6 w-full h-10 border border-zinc-400/30 shadow-inner rounded-xl">
+        <h1 class="font-semibold text-gray-800 select-none text-shadow-md">Delete in:</h1>
         <div class="flex flex-row justify-between gap-3 items-center flex-1 h-full *:min-w-13">
           {/* Maybe create a setting for customizable options. */}
           <DefaultButton onClick={() => performAction({action: "delete", after: 10})}>10m</DefaultButton>
