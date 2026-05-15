@@ -11,6 +11,7 @@ import { open } from "@tauri-apps/plugin-dialog";
 
 type DownloadedFileIn = {
   id: number,
+  location: string,
   display_name: string,
   archive: boolean
 }
@@ -22,10 +23,10 @@ type DownloadedFileOut = {
 }
 
 type Action =
-  | { action: "delete"; after: number }
-  | { action: "ignore" }
-  | { action: "extract"; to: string }
-  | { action: "move"; to: string };
+  | { action: "Delete"; after: number }
+  | { action: "Ignore" }
+  | { action: "Extract"; to: string }
+  | { action: "Move"; to: string };
 
 const App: Component = () => {
 
@@ -36,6 +37,7 @@ const App: Component = () => {
 
   listen<DownloadedFileIn>("file_added", (event) => {
     const file = event.payload;
+    console.log(file);
     setFile(file);
   });
 
@@ -55,7 +57,8 @@ const App: Component = () => {
       display_name: fileNameInput!.value!,
       action: action
     }
-    invoke("perform_action", arg);
+    console.log("doing it");
+    invoke("perform_action", {fileAction: arg});
   }
 
   async function selectFolder(then: (folder: string) => void) {
@@ -68,8 +71,8 @@ const App: Component = () => {
   return (
     <AppWindow>
       <Header title="New Download">
-        <IconButton onClick={() => performAction({action: "ignore"})} class="bg-zinc-500/30" svgIcon={<EyeIcon class="w-5 h-5 fill-zinc-500 "/> as Element} />
-        <IconButton onClick={() => performAction({action: "delete", after: 0})} class="bg-red-500/30" svgIcon={<TrashIcon class="w-5 h-5 stroke-red-500"/> as Element} />
+        <IconButton onClick={() => performAction({action: "Ignore"})} class="bg-zinc-500/30" svgIcon={<EyeIcon class="w-5 h-5 fill-zinc-500 "/> as Element} />
+        <IconButton onClick={() => performAction({action: "Delete", after: 0})} class="bg-red-500/30" svgIcon={<TrashIcon class="w-5 h-5 stroke-red-500"/> as Element} />
       </Header>
 
       <DefaultInput ref={fileNameInput} value={file()?.display_name} />
@@ -80,17 +83,17 @@ const App: Component = () => {
         <h1 class="font-semibold text-gray-800 select-none text-shadow-md">Delete in:</h1>
         <div class="flex flex-row justify-between gap-3 items-center flex-1 h-full *:min-w-13">
           {/* Maybe create a setting for customizable options. */}
-          <DefaultButton onClick={() => performAction({action: "delete", after: 10})}>10m</DefaultButton>
-          <DefaultButton onClick={() => performAction({action: "delete", after: 30})}>30m</DefaultButton>
-          <DefaultButton onClick={() => performAction({action: "delete", after: 60})}>1h</DefaultButton>
-          <DefaultButton onClick={() => performAction({action: "delete", after: 120})}>2h</DefaultButton>
-          <DefaultButton onClick={() => performAction({action: "delete", after: 360})}>6h</DefaultButton>
+          <DefaultButton onClick={() => performAction({action: "Delete", after: 10})}>10m</DefaultButton>
+          <DefaultButton onClick={() => performAction({action: "Delete", after: 30})}>30m</DefaultButton>
+          <DefaultButton onClick={() => performAction({action: "Delete", after: 60})}>1h</DefaultButton>
+          <DefaultButton onClick={() => performAction({action: "Delete", after: 120})}>2h</DefaultButton>
+          <DefaultButton onClick={() => performAction({action: "Delete", after: 360})}>6h</DefaultButton>
         </div>
       </div>
 
       <div class="flex flex-row justify-between items-center gap-4 w-full">
-        <DefaultButton onClick={() => selectFolder((folder) => performAction({action: "move", to: folder}))} class="flex-1">Move</DefaultButton>
-        <DefaultButton onClick={() => selectFolder((folder) => performAction({action: "extract", to: folder}))} disabled={fileNameInput!.value.endsWith(".zip") ? false : true} class="flex-1">Extract</DefaultButton>
+        <DefaultButton onClick={() => selectFolder((folder) => performAction({action: "Move", to: folder}))} class="flex-1">Move</DefaultButton>
+        <DefaultButton onClick={() => selectFolder((folder) => performAction({action: "Extract", to: folder}))} disabled={fileNameInput!.value.endsWith(".zip") ? false : true} class="flex-1">Extract</DefaultButton>
       </div>
 
       <Footer />

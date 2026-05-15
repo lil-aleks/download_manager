@@ -5,7 +5,7 @@ use tauri::async_runtime;
 
 #[derive(Serialize, Deserialize)]
 pub struct DownloadedFileIn {
-  id: i64,
+  pub id: i64,
   display_name: String,
   action: Action,
 }
@@ -19,10 +19,11 @@ enum Action {
   Move { to: PathBuf },
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct DownloadedFile {
-  id: i16,
-  location: PathBuf,
+  pub id: i16,
+  pub location: PathBuf,
+  display_name: String,
   zip_archive: bool,
 }
 
@@ -30,7 +31,8 @@ impl DownloadedFile {
   pub fn new(id: i16, location: PathBuf) -> DownloadedFile {
     DownloadedFile {
       id,
-      location,
+      location: location.clone(),
+      display_name: location.file_name().unwrap().to_os_string().into_string().unwrap(),
       zip_archive: false,
     }
   }
